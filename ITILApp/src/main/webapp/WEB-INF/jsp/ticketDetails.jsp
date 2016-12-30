@@ -38,7 +38,7 @@
 		$('#priority').val($('#selectedPriority').val());
 		//set severity
 		$('#severity').val($('#selectedSeverity').val());
-		//set status
+		//set status of status
 		$('#status').val($('#selectedStatus').val());
 		
 		
