@@ -39,7 +39,6 @@
 		//set severity
 		$('#severity').val($('#selectedSeverity').val());
 		//set status
-		alert("selected satus :"+$('#selectedStatus').val());
 		$('#status').val($('#selectedStatus').val());
 		
 		
