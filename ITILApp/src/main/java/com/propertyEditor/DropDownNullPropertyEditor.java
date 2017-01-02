@@ -10,6 +10,7 @@ import java.beans.PropertyEditorSupport;
 public class DropDownNullPropertyEditor extends PropertyEditorSupport{
 	@Override
 	public void setAsText(String dropdownValue) throws IllegalArgumentException {
+		System.out.println("input dropdownValue :"+dropdownValue);
 		if(dropdownValue != null){
 			if((dropdownValue.equalsIgnoreCase("null")) ||
 					(dropdownValue.equalsIgnoreCase("none"))){

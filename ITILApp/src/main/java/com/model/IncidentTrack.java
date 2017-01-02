@@ -27,8 +27,13 @@ public class IncidentTrack {
 	private Timestamp actionTimestamp;
 	@Column(name = "LOG_DESCRIPTION")
 	private String logDescription;
-	@Column(name = "ACTION_TAKEN_BY")
+	//@Column(name = "ACTION_TAKEN_BY")
+	@Transient
 	private int actionTakenBy;
+	
+	@ManyToOne
+	@JoinColumn(name = "ACTION_TAKEN_BY")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "STATUS")
@@ -102,6 +107,14 @@ public class IncidentTrack {
 	public void setIncidentStatus(IncidentStatus incidentStatus) {
 		this.incidentStatus = incidentStatus;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 	
 	
 	

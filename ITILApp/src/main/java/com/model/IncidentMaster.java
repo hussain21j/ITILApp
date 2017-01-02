@@ -5,16 +5,21 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ITIL_INCIDENT_MASTER")
 public class IncidentMaster {
 	@EmbeddedId
 	private IncidentDetailId incidentDetailId;
-	@Column(name = "STATUS")
+	//@Column(name = "STATUS")
+	@Transient
 	private String status;
-	@Column(name = "ASSIGNED_USER")
+	//@Column(name = "ASSIGNED_USER")
+	@Transient
 	private String assignedUser;
 	@Column(name = "RESOLUTION_TIMESTAMP")
 	private Timestamp resolutionTimestamp;
@@ -22,6 +27,15 @@ public class IncidentMaster {
 	private Timestamp closeTimestamp;
 	@Column(name = "TOTAL_TIME_TAKEN")
 	private int totalTimeTaken;
+	
+	@ManyToOne
+	@JoinColumn(name ="STATUS")
+	private IncidentStatus incidentStatus;
+	
+	@ManyToOne
+	@JoinColumn(name = "ASSIGNED_USER")
+	private User user;
+	
 	public IncidentDetailId getIncidentDetailId() {
 		return incidentDetailId;
 	}
@@ -57,6 +71,18 @@ public class IncidentMaster {
 	}
 	public void setTotalTimeTaken(int totalTimeTaken) {
 		this.totalTimeTaken = totalTimeTaken;
+	}
+	public IncidentStatus getIncidentStatus() {
+		return incidentStatus;
+	}
+	public void setIncidentStatus(IncidentStatus incidentStatus) {
+		this.incidentStatus = incidentStatus;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

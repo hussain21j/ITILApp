@@ -25,7 +25,7 @@ public interface TicketService {
 	public List<IncidentStatus> getListOfIncidentStatus();
 	public List<IncidentPriority> getListOfIncidenPriority();
 	public List<IncidentSeverity> getListOfIncidenSeverity();
-	public int registerNewIncident(IncidentDetails incidentDetails) throws Throwable;
+	public int registerNewIncident(IncidentDetails incidentDetails, String loggedInUser) throws Throwable;
 	public List<IncidentDetails> getUserWorkList(int loggedInUser, String incidentStatus);
 	public IncidentDetails getIncidentDetails(String incidentId) throws Throwable;
 	public List<IncidentTrack> getIncidentTrackDetails(IncidentDetailId incidentDetailId) throws Throwable;

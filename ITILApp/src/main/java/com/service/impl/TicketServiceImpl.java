@@ -229,8 +229,8 @@ public class TicketServiceImpl implements TicketService{
 			
 			//set data in incident master
 			incidentMaster.setIncidentDetailId(incidentDetailId);
-			incidentMaster.setStatus(ITILConstantUtil.INCIDENT_STATUS_OPEN);
-			incidentMaster.setAssignedUser("251055");
+			incidentMaster.setIncidentStatus(incidentStatus);
+			incidentMaster.setUser(user);
 			//incidentMaster.setResolutionTimestamp();
 			//incidentMaster.setTotalTimeTaken(210);//dummy value
 			

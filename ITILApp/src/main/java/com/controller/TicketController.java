@@ -94,7 +94,7 @@ public class TicketController {
 	}
 	
 	@RequestMapping(value = "/raiseNewTicket", method = RequestMethod.POST)
-	public String raiseNewTicket(@Valid @ModelAttribute("incidentDetails") IncidentDetails incidentDetails, BindingResult bindingResult, Map<String, Object> model){
+	public String raiseNewTicket(@Valid @ModelAttribute("incidentDetails") IncidentDetails incidentDetails, BindingResult bindingResult, Map<String, Object> model, Principal principal){
 		int status = 0;
 		if(bindingResult.hasErrors()){
 			model.put("originationMediumList", ticketService.getListOriginationMedium());
@@ -113,7 +113,7 @@ public class TicketController {
 		else{
 			System.out.println("stating method handeller raiseNewTicket");
 			try{
-				status = ticketService.registerNewIncident(incidentDetails);
+				status = ticketService.registerNewIncident(incidentDetails, principal.getName());
 				System.out.println("registratino output :"+status);
 				model.put("registrationStatus", "successfull");
 			}

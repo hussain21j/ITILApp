@@ -49,5 +49,9 @@ public class UserDaoImpl implements UserDao {
 	public User findUser(String userId) {
 		return (User) session.getCurrentSession().get(User.class, userId);
 	}
+
+	public User getUserDetails(String userId) {
+		return (User) session.getCurrentSession().get(User.class, userId) ;
+	}
 		
 }

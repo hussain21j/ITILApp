@@ -175,7 +175,7 @@ public class TicketDaoImpl implements TicketDao{
 		String hQuery = "";
 		ArrayList<IncidentMaster> listIncidentMaster = null;
 		
-		hQuery = "FROM IncidentMaster IM WHERE IM.assignedUser = '"+boundUser+"' AND IM.status = '"+incidentStatus+"'";
+		hQuery = "FROM IncidentMaster IM WHERE IM.user.username = '"+boundUser+"' AND IM.incidentStatus.statusCode = '"+incidentStatus+"'";
 		try{
 			listIncidentMaster = (ArrayList<IncidentMaster>) sessionFactory.getCurrentSession().createQuery(hQuery).list();
 			System.out.println("list size : "+listIncidentMaster.size());
