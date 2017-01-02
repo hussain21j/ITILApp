@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.dao.TicketDao;
+import com.dao.UserDao;
 import com.model.IncidentCategory;
 import com.model.IncidentDetailId;
 import com.model.IncidentDetails;
@@ -24,6 +25,7 @@ import com.model.IncidentTrack;
 import com.model.InstitutionMapping;
 import com.model.InstitutionType;
 import com.model.OriginationMedium;
+import com.model.User;
 import com.service.TicketService;
 import com.util.ITILConstantUtil;
 import com.util.TimeUtil;
@@ -32,6 +34,9 @@ import com.util.TimeUtil;
 public class TicketServiceImpl implements TicketService{
 	@Autowired
 	private TicketDao ticketDao;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Transactional
 	public List<OriginationMedium> getListOriginationMedium() {
@@ -92,7 +97,7 @@ public class TicketServiceImpl implements TicketService{
 	 * 
 	 */
 	@Transactional
-	public int registerNewIncident(IncidentDetails incidentDetails) throws Throwable {
+	public int registerNewIncident(IncidentDetails incidentDetails, String loggedInUser) throws Throwable {
 		System.out.println("beggingng the registerNewIncident");
 		int newIncidentNo = 0;
 		IncidentDetailId incidentDetailId = null;
@@ -109,6 +114,7 @@ public class TicketServiceImpl implements TicketService{
 		IncidentPriority incidentPriority = null;
 		IncidentSeverity incidentSeverity = null;
 		IncidentStatus incidentStatus = null;
+		User user = null;
 		
 		String incidentCategoryCode = "";
 		String incidentSubCategoryCode = "";
@@ -150,7 +156,11 @@ public class TicketServiceImpl implements TicketService{
 			priority = incidentDetails.getPriority();
 			severity = incidentDetails.getSeverity();
 			status = incidentDetails.getStatus();
+				
+			//get logged in user details
+			user = userDao.getUserDetails(loggedInUser);
 			
+			System.out.println("Logged in user : id:"+user.getUsername() + "   "+user.getUserFullName());
 			
 			//set incident category 
 			incidentCategory.setCategoryCode(incidentCategoryCode);
@@ -214,7 +224,7 @@ public class TicketServiceImpl implements TicketService{
 			incidentTrack.setLogDescription(ITILConstantUtil.INCIDENT_LOG_FIRST_DRAFT);
 			incidentTrack.setIncidentDetails(incidentDetails);
 			incidentTrack.setIncidentSLALog(incidentSLALog);
-			incidentTrack.setActionTakenBy(251055);
+			incidentTrack.setUser(user);
 			incidentTrack.setActionTimestamp(actionTimestamp);
 			
 			//set data in incident master
@@ -308,6 +318,5 @@ public class TicketServiceImpl implements TicketService{
 		}
 		return listIncidentTrack;
 	}
-
 
 }
